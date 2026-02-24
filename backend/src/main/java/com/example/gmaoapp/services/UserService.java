@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.repository.query.Param;
@@ -55,6 +56,8 @@ public class UserService{
 
     private Path foundFile;
 
+    @Value("${filestore}")
+    private String filestore;
     /*public Image saveImage(MultipartFile file) throws Exception {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
@@ -229,7 +232,7 @@ public class UserService{
 
     public String saveFile(String fileName, MultipartFile multipartFile)
             throws IOException {
-        Path uploadPath = Paths.get("Files-Upload");
+        Path uploadPath = Paths.get(filestore);
 
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
